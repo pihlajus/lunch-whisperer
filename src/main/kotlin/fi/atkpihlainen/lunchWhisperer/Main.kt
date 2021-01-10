@@ -5,6 +5,7 @@ import fi.atkpihlainen.lunchWhisperer.messages.createMessages
 import fi.atkpihlainen.lunchWhisperer.utils.eduMenuExists
 import fi.atkpihlainen.lunchWhisperer.utils.getEduMenu
 import fi.atkpihlainen.lunchWhisperer.utils.getMenus
+import fi.atkpihlainen.lunchWhisperer.utils.getWeekDay
 import io.kotless.dsl.lang.event.Scheduled
 import io.kotless.dsl.lang.http.Get
 import org.jsoup.Jsoup
@@ -22,7 +23,7 @@ val FAVOURITE_DISHES = listOf("siipibuffet", "siipibuffa") // Use lower case in 
 fun scheduledMenus(): String {
     val menus = getMenus(Jsoup.connect(LOUNAAT_INFO_URL).get())
     if (!eduMenuExists(menus, EDU_NAME)) {
-        getEduMenu(Jsoup.connect(EDU_URL).get())
+        getEduMenu(Jsoup.connect(EDU_URL).get(), getWeekDay())
     }
     val messenger = SlackMessenger()
     createMessages(menus, MENUS_TO_SENT, FAVOURITE_DISHES).forEach { messenger.sendMenus(it) }

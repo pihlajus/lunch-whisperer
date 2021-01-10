@@ -2,8 +2,8 @@ package fi.atkpihlainen.lunchWhisperer.messages
 
 import fi.atkpihlainen.lunchWhisperer.model.Menu
 
-fun createMessages(menus: List<Menu>, restaurants: List<String>, favouriteDishes: List<String>): MutableList<String> {
-    val messages: MutableList<String> = getFavouriteRestaurantsMessages(menus, restaurants)
+fun createMessages(menus: List<Menu>, restaurants: List<String>, favouriteDishes: List<String>): MutableSet<String> {
+    val messages: MutableSet<String> = getFavouriteRestaurantsMessages(menus, restaurants)
     messages.addAll(getFavouriteDishMessages(menus, favouriteDishes))
     return messages
 }
@@ -29,8 +29,8 @@ private fun createMessage(menu: Menu): String {
     return msg
 }
 
-private fun getFavouriteRestaurantsMessages(menus: List<Menu>, restaurants: List<String>): MutableList<String> {
-    val messages: MutableList<String> = mutableListOf()
+private fun getFavouriteRestaurantsMessages(menus: List<Menu>, restaurants: List<String>): MutableSet<String> {
+    val messages: MutableSet<String> = mutableSetOf()
     menus
         .filter { menu -> restaurants.contains(menu.restaurant.name) }
         .forEach { menu ->

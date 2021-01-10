@@ -4,6 +4,7 @@ import fi.atkpihlainen.lunchWhisperer.model.Dish
 import fi.atkpihlainen.lunchWhisperer.model.Menu
 import fi.atkpihlainen.lunchWhisperer.model.SpecialDietAbbreviations
 import fi.atkpihlainen.lunchWhisperer.model.SpecialDietClasses
+import java.util.*
 
 fun eduMenuExists(menus: List<Menu>, edu: String): Boolean {
     val eduMenu = menus.find { menu -> menu.restaurant.name == edu }
@@ -57,4 +58,16 @@ private fun isLactoseFree(diets: String): Boolean {
 private fun isVegan(diets: String): Boolean {
     return diets.contains(SpecialDietClasses.VEGAN.value, ignoreCase = true) ||
         diets.contains(SpecialDietAbbreviations.VEGAN.value, ignoreCase = false)
+}
+
+fun getWeekDay(): String {
+    val day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
+    return (when (day) {
+        2 -> "MAANANTAI"
+        3 -> "TIISTAI"
+        4 -> "KESKIVIIKKO"
+        5 -> "TORSTAI"
+        6 -> "PERJANTAI"
+        else -> "Viikonloppu"
+    })
 }

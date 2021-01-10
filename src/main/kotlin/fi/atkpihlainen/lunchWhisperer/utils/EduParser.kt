@@ -2,15 +2,13 @@ package fi.atkpihlainen.lunchWhisperer.utils
 
 import fi.atkpihlainen.lunchWhisperer.model.Dish
 import org.jsoup.nodes.Document
-import java.util.*
 
-
-fun getEduMenu(doc: Document): List<Dish> {
+fun getEduMenu(doc: Document, weekDay: String): List<Dish> {
     val lunchesRaw = doc
         .select("#pirkkala")
         .select(".modal-body")[0]
         .select("p")
-        .filter { el -> el.text().contains(getWeekDay(), ignoreCase = true) }[0]
+        .filter { el -> el.text().contains(weekDay, ignoreCase = true) }[0]
         .toString()
     return lunchesRaw
         .split("<br>")
@@ -31,14 +29,3 @@ private fun parseEdusDiets(dishRaw: String): Pair<String, String> {
         )
 }
 
-private fun getWeekDay(): String {
-    val day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
-    return (when (day) {
-        2 -> "MAANANTAI"
-        3 -> "TIISTAI"
-        4 -> "KESKIVIIKKO"
-        5 -> "TORSTAI"
-        6 -> "PERJANTAI"
-        else -> "Viikonloppu"
-    })
-}

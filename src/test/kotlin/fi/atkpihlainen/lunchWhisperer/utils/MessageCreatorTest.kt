@@ -36,7 +36,7 @@ class MessageCreatorTest {
     private val menus = listOf(
         Menu(
             restaurant = Restaurant(name = "Ninan Keittiö Veska", uri = null, address = null),
-            dishes = listOf(curryBroiler, kalakukko)
+            dishes = listOf(curryBroiler, kalakukko, jauhelihaKastike)
         ),
         Menu(
             restaurant = Restaurant(name = "Edun Herkkukeidas Pirkkala", uri = null, address = null),
@@ -58,8 +58,11 @@ class MessageCreatorTest {
         val validRestaurants = listOf("Ninan Keittiö Veska", "Edun Herkkukeidas Pirkkala")
         val favouriteDishes = listOf("Siipibuffet", "jauhelihakastike")
         val messages = createMessages(menus, validRestaurants, favouriteDishes)
-        assertEquals("*Ninan Keittiö Veska*\nCurrybroileria ja riisiä\nKalakukko\n", messages[0])
-        assertEquals("*Edun Herkkukeidas Pirkkala*\nCurrybroileria ja riisiä\nKalakukko\n", messages[1])
+        assertEquals(
+            "*Ninan Keittiö Veska*\nCurrybroileria ja riisiä\nKalakukko\nJauhelihakastike\n",
+            messages.elementAt(0)
+        )
+        assertEquals("*Edun Herkkukeidas Pirkkala*\nCurrybroileria ja riisiä\nKalakukko\n", messages.elementAt(1))
         assertEquals(3, messages.size)
     }
 }

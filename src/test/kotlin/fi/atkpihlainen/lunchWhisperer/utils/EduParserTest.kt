@@ -10,8 +10,12 @@ class EduParserTest {
     fun testGetMenus() {
         val file = this::class.java.classLoader.getResource("edu.html").readText()
         val doc = Jsoup.parse(file, "test")
-        val menus = getEduMenu(doc)
-        assertEquals(3, actual = menus.size)
+        val dishes = getEduMenu(doc, "keskiviikko")
+        assertEquals(3, actual = dishes.size)
+        assertEquals("Auralohi", dishes[0].name)
+        assertEquals("Jauheliha pippuripihvi", dishes[1].name)
+        assertEquals(true, dishes[0].lactoseFree)
+        assertEquals(false, dishes[0].milkless)
     }
 }
 
